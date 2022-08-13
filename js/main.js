@@ -55,33 +55,40 @@ function calculatePanel () {
 } // end of function
 
 
-
-
-
 function calculateSolar() {
     let dailyUseKw = addMonths('mpc');
-    console.log(dailyUseKw);
+   // console.log(dailyUseKw);
 
     let sunHoursPerDay = sunHours();
-    console.log(sunHoursPerDay);
+    //console.log(sunHoursPerDay);
 
     let minKwNeeds = dailyUseKw/sunHoursPerDay;
-    console.log(minKwNeeds);
+    //console.log(minKwNeeds);
 
     let realKwNeeds = minKwNeeds * 1.25;
-    console.log(realKwNeeds);
+    //console.log(realKwNeeds);
 
     let realWattNeeds = realKwNeeds * 1000;
-    console.log(realWattNeeds);
+   //console.log(realWattNeeds);
 
     let panelInfo = calculatePanel();
     let panelOutput = panelInfo[0];
     let panelChoice = panelInfo[1];
-    console.log(panelOutput);
-    console.log(panelChoice);
+    //console.log(panelOutput);
+    //console.log(panelChoice);
 
     let panelsNeeded = Math.ceil(realWattNeeds / panelOutput);
-    console.log(panelsNeeded);
+    //console.log(panelsNeeded);
 
+
+    let feedback = "";
+    feedback += "<p> Based on your average daily use of "+ Math.round(dailyUseKw)+" kWh, you will need to purchase "+ panelsNeeded +" "+ panelChoice +" brand solar panels to offest 100% of your eletricity bill.</p>";
+    feedback += "<h2>Additional Details</h2>";
+    feedback += "<p>Your average daily electricity consumption: "+Math.round(dailyUseKw)+" Kwh per day.</p>";
+    feedback += "<p>Average sunshine hours per day: "+sunHoursPerDay+" hours </p>";
+    feedback += "<p>Realistic watts needed per hour: "+Math.round(realWattNeeds)+" watts/hour.</p>";
+    feedback += "<p>The "+panelChoice+" panel you selected generates about "+panelOutput+" watts per hour.</p>";
+
+    document.getElementById('feedback').innerHTML = feedback;
 
 } //end function
